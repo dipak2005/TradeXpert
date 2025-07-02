@@ -1,9 +1,9 @@
 import React from "react";
-
+import { positions } from "../data/data.js";
 const Positions = () => {
   return (
     <>
-      <h3 className="title">Positions (2)</h3>
+      <h3 className="title">Positions ({positions.length})</h3>
 
       <div className="order-table">
         <table>
@@ -16,6 +16,27 @@ const Positions = () => {
             <th>P&L</th>
             <th>Chg.</th>
           </tr>
+
+          {positions.map((product, index) => {
+                      const currVal = product.price * product.qty;
+                      const isProfit = currVal - product.avg * product.qty >= 0.0;
+                      const profitClass = isProfit ? "profit" : "loss";
+                      const dayClass = product.isLoss ?"loss" :"profit";
+          
+                      return (
+                        <tr key={index} >
+                          <td>{product.product}</td>
+                      <td>{product.name}</td>
+                      <td>{product.qty}</td>
+                      <td>{product.avg.toFixed(2)}</td>
+                      <td>{product.price.toFixed(2)}</td>
+                      
+                      <td className={profitClass}>{(currVal-product.avg * product.qty).toFixed(2)}</td>
+                      {/* <td className={profitClass}>{stock.net}</td> */}
+                      <td className={dayClass}>{product.day}</td>
+                    </tr> 
+                      );
+                    })}
         </table>
       </div>
     </>
