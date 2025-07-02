@@ -1,0 +1,67 @@
+* {
+  font-family: 'Segoe UI';
+}
+
+.trust-section {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3rem;
+ font-family: 'Noto Sans', sans-serif;
+  gap: 2rem;
+  background-color: #fff;
+  justify-content: space-between;
+}
+
+.trust-text {
+  flex: 1 1 400px;
+  max-width: 550px;
+}
+
+.trust-point h3 {
+  margin: 1rem 0 0.3rem;
+  font-size: 1.1rem;
+}
+
+.trust-point p {
+  margin: 0 0 1rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+.trust-links {
+  margin-top: 2rem;
+}
+
+.trust-links a {
+  margin-right: 2rem;
+  color: #0b69ff;
+  text-decoration: none;
+}
+
+.trust-links a:hover {
+  text-decoration: underline;
+}
+
+.trust-logos {
+ height: 633px;
+ width: 612px;
+}
+
+.logo-item {
+  position: absolute;
+  background: white;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+
+/* Position logos around the circle */
+.streak { top: 5%; left: 40%; }
+.ditto { top: 10%; right: 10%; }
+.console { top: 35%; left: 30%; }
+.kite { top: 40%; right: 20%; }
+.sensibull { bottom: 35%; left: 5%; }
+.coin { bottom: 30%; left: 40%; }
+.smallcase { bottom: 10%; right: 10%; }
+.tijori { bottom: 5%; left: 35%; }

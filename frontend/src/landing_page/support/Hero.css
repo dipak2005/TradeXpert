@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+.support-portal {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2c78d0;
+  color: white;
+  padding: 0 100px 0 100px;
+flex-wrap: wrap;
+  font-family: 'Segoe UI';
+  /* padding: 50px; */
+}
+
+.left-section, .right-section {
+  flex: 1.2;
+}
+
+.left-section {
+  max-width: 60%;
+  padding: 80px;
+}
+.left-section h2,p {
+    color: white;
+}
+
+.right-section {
+  max-width: 35%;
+  padding-left: 40px;
+   padding: 80px;
+}
+
+.search-box {
+  position: relative;
+  margin: 20px 0;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  color: #333;
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #888;
+}
+
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.quick-links a,
+.track-tickets {
+  color: white;
+  border-bottom: 1px solid white;
+  text-decoration: none;
+  padding-bottom: 2px;
+}
+
+.quick-links a:hover,
+.track-tickets:hover {
+  opacity: 0.8;
+}
+
+.right-section ol ,li {
+  padding-left: 20px;
+  margin-top: 20px;
+}
+
+.right-section a {
+  color: white;
+  text-decoration: underline;
+}

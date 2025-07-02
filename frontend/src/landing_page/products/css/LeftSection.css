@@ -1,0 +1,12 @@
+.links {
+  display: flex;            /* Make items come inline */
+  align-items: center;      /* Align vertically */
+  gap: 0;                   /* Remove default spacing */
+}
+
+.links h1,
+.links a {
+  margin: 0;                /* Remove default browser margin */
+  padding: 0; 
+               /* Remove padding if any */
+}

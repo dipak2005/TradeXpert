@@ -1,0 +1,7 @@
+.people-img {
+    height: 100px;
+    width: 80%;
+    border-radius: 50%;
+    background-color: aquamarine;
+    border: 1px solid gray;
+}

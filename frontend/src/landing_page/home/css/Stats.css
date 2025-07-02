@@ -1,0 +1,35 @@
+* {
+  font-family: 'Segoe UI';
+}
+
+.h2 {
+   color: #424242;
+   font-size: 32px;
+}
+
+.h3 {
+    color: #424242;
+    font-size: 20px;
+}
+p {
+    color: #666666;
+    font-size: 16px;
+    text-align: justify;
+    font-weight: 400;
+}
+a {
+    color: #387ed1;
+    text-decoration: none;
+   
+}
+
+a i {
+    color: #387ed1;
+    text-decoration: none;
+    font-weight: 400;
+   
+}
+a:hover ,a > i:hover {
+    color: #424242;
+}
+

@@ -1,0 +1,64 @@
+/* .market-edu-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
+  padding: 3rem 2rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.market-edu-left {
+  flex: 1 1 400px;
+  text-align: center;
+}
+
+.edu-image {
+  width: 100%;
+  max-width: 400px;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.market-edu-right {
+  flex: 1 1 400px;
+}
+
+.market-edu-right h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.market-edu-right p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.edu-link {
+  display: inline-block;
+  color: #1a73e8;
+  font-weight: 500;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+}
+
+.edu-link:hover {
+  text-decoration: underline;
+} */
+
+
+h2 {
+    color: #424242;
+}
+a{
+    color: #387ed1;
+    font-size: 17px;
+    font-weight: 400;
+}
+a:hover{
+    color: #424242;
+}
