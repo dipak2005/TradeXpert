@@ -91,15 +91,15 @@ const WatchListActions = ({ uid }) => {
         </Tooltip>
 
 
-       {/* delete */}
+       {/* delete
        <Tooltip
-          title="SELL (S)"
+          title="Delete "
           placement="top"
           arrow
           TransitionComponent={Grow}
         >
           <button className="delete"><DeleteOutlineOutlined/></button>
-        </Tooltip>
+        </Tooltip> */}
 
         {/* Graph */}
         <Tooltip
