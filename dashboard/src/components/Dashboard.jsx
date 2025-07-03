@@ -9,13 +9,17 @@ import Orders from "../components/Orders";
 import Positions from "../components/Positions";
 import Summary from "../components/Summary";
 import WatchList from "../components/WatchList";
+import {GeneralContextProvider} from "./GeneralContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = () => {
   return (
     <div className="dashboard-container">
-      {/* <GeneralContextProvider> */}
+      <GeneralContextProvider>
         <WatchList />
-      {/* </GeneralContextProvider> */}
+        <ToastContainer position="top-right" autoClose={2000} />
+      </GeneralContextProvider>
       <div className="content">
         <Routes>
           <Route exact path="/" element={<Summary />} />
@@ -25,6 +29,7 @@ const Dashboard = () => {
           <Route path="/funds" element={<Funds />} />
           <Route path="/apps" element={<Apps />} />
         </Routes>
+        
       </div>
     </div>
   );

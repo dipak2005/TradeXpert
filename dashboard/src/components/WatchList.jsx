@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Tooltip, Grow } from "@mui/material";
 import {
   BarChartOutlined,
@@ -11,26 +11,59 @@ import {
 } from "@mui/icons-material";
 
 import { watchlist } from "../data/data";
-const WatchList = () => {
-  return (
-    <div className="watchlist-container">
-      <div className="search-container">
-        <input
-          type="text"
-          name="search"
-          id="search"
-          placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
-          className="search"
-        />
-        <span className="counts"> {watchlist.length}/ 50</span>
-      </div>
+import GeneralContext from "./GeneralContext";
+import { DoughnutChart } from "../components/Doughnout";
 
-      <ul className="list">
-        {watchlist.map((stock, index) => {
-          return <WatchListItem stock={stock} key={index} />;
-        })}
-      </ul>
-    </div>
+const labels = watchlist.map((subarray) => subarray["name"]);
+const WatchList = () => {
+  const data = {
+    labels,
+    datasets: [
+      {
+        labels: "Price",
+        data: watchlist.map((stock) => stock.price),
+        backgroundColor: [
+          "rgba(232, 63, 69, 0.72)",
+          "rgba(38, 116, 218, 0.74)",
+          "rgba(221, 179, 39, 0.71)",
+          "rgba(22, 171, 225, 0.79)",
+          "rgba(98, 43, 206, 0.5)",
+          "rgba(206, 115, 25, 0.5)",
+        ],
+        borderColor: [
+          "rgba(232, 63, 69, 1)",
+          "rgba(38, 116, 218, 1)",
+          "rgba(221, 179, 39, 1)",
+          "rgba(22, 171, 225, 1)",
+          "rgba(98, 43, 206, 1)",
+          "rgba(206, 115, 25, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+  return (
+    <>
+      <div className="watchlist-container">
+        <div className="search-container">
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
+            className="search"
+          />
+          <span className="counts"> {watchlist.length}/ 50</span>
+        </div>
+
+        <ul className="list">
+          {watchlist.map((stock, index) => {
+            return <WatchListItem stock={stock} key={index} />;
+          })}
+        </ul>
+        <DoughnutChart data={data} />
+      </div>
+    </>
   );
 };
 
@@ -67,6 +100,17 @@ const WatchListItem = ({ stock }) => {
 };
 
 const WatchListActions = ({ uid }) => {
+  const generalContext = useContext(GeneralContext);
+
+  // BUY
+  const handleBuyClick = () => {
+    generalContext.openBuyWindow(uid);
+  };
+
+  const handleSellClick = () => {
+    generalContext.openSellWindow(uid);
+  };
+
   return (
     <span className="actions">
       <span>
@@ -76,6 +120,7 @@ const WatchListActions = ({ uid }) => {
           placement="top"
           arrow
           TransitionComponent={Grow}
+          onClick={handleBuyClick}
         >
           <button className="buy">BUY</button>
         </Tooltip>
@@ -86,12 +131,12 @@ const WatchListActions = ({ uid }) => {
           placement="top"
           arrow
           TransitionComponent={Grow}
+          onClick={handleSellClick}
         >
           <button className="sell">Sell</button>
         </Tooltip>
 
-
-       {/* delete
+        {/* delete
        <Tooltip
           title="Delete "
           placement="top"
@@ -104,7 +149,8 @@ const WatchListActions = ({ uid }) => {
         {/* Graph */}
         <Tooltip
           title="Analytics (A)"
-          placement="top"style={{Padding:"10px 0 0 0"}}
+          placement="top"
+          style={{ Padding: "10px 0 0 0" }}
           arrow
           TransitionComponent={Grow}
         >
@@ -123,8 +169,6 @@ const WatchListActions = ({ uid }) => {
             <MoreHoriz className="icon" />
           </button>
         </Tooltip>
-
-        
       </span>
     </span>
   );

@@ -1,0 +1,39 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for TradeXpert",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "dev": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dipak2005/TradeXpert.git"
+  },
+  "keywords": [
+    "trading",
+    "marketing",
+    "stocks"
+  ],
+  "author": "Dipak Thakur",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dipak2005/TradeXpert/issues"
+  },
+  "homepage": "https://github.com/dipak2005/TradeXpert#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "axios": "^1.10.0",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^8.0.0"
+  }
+}
