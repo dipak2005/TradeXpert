@@ -4,7 +4,7 @@ const Summary = () => {
   return (
     <>
       <div className="username">
-        <h6>Hi, User!</h6>
+        <h6>Hi, Deepak!</h6>
         <hr className="divider" />
       </div>
 
@@ -15,7 +15,7 @@ const Summary = () => {
 
         <div className="data">
           <div className="first">
-            <h3>3.74k</h3>
+            <h3 style={{fontWeight:"500"}}>3.74k</h3>
             <p>Margin available</p>
           </div>
           <hr />
@@ -24,7 +24,7 @@ const Summary = () => {
             <p>
               Margins used <span>0</span>{" "}
             </p>
-            <p>
+            <p >
               Opening balance <span>3.74k</span>{" "}
             </p>
           </div>
@@ -39,7 +39,7 @@ const Summary = () => {
 
         <div className="data">
           <div className="first">
-            <h3 className="profit">
+            <h3 className="profit" style={{fontWeight:"500"}}>
               1.55k <small>+5.20%</small>{" "}
             </h3>
             <p>P&L</p>

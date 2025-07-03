@@ -37,3 +37,42 @@
 .nav-links a:hover {
     color: #1f64c5;
 }
+
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.popup-menu {
+  position: absolute;
+  top: 80px;
+  right: 150px;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.popup-menu ul li {
+    list-style: none;
+}
+ 
+.popup-menu .product {
+     display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.popup-menu .product img {
+   width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+.popup-menu .product p {
+    margin: 2px 0;
+  font-family: "Segoe UI", sans-serif;
+  color: #555;
+    
+}

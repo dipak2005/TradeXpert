@@ -35,6 +35,11 @@ app.get("/allPositions", async (req, res) => {
   return res.json(allpositions);
 });
 
+app.get("/allOrders", async (req,res) => {
+ let allOrders = await OrdersModel.find({});
+ return res.json(allOrders);
+});
+
 app.post("/newOrder", async (req, res) => {
   let newOrder = new OrdersModel({
     name: req.body.name,
@@ -43,9 +48,9 @@ app.post("/newOrder", async (req, res) => {
     mode: req.body.mode,
   });
 
-  if (Orders.mode === "SELL") {
+  if (newOrder.mode === "SELL") {
     const holding = await HoldingsModel.findOne({
-      userId: req.params.userId,
+      // userId: req.params.userId,
       name: req.body.name,
     });
 
