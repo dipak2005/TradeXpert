@@ -41,8 +41,11 @@ ul {
 ul li {
   margin-bottom: 8px;
 }
-p {
+.col-3 p {
     color: #424242;
+    font-size: 15px;
+    padding-left: 10px;
+    margin-top: 10px;
 }
 ul li a {
   color: #666666;

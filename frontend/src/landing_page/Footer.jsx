@@ -11,7 +11,7 @@ function Footer() {
           <img
             src="media/images/t3.png"
             alt=""
-            style={{ width: "130px", margin: "0 40px 0 0" }}
+            style={{ width: "130px", margin: "50px 40px 0 0" }}
           />
           <p>
             © 2010 - 2025, TradeXpert Broking Ltd. <br /> All rights reserved.
