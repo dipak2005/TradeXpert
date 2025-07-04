@@ -16,18 +16,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Dashboard = () => {
-   const navigate = useNavigate();
-  useEffect(()=> {
-       axios.get("https://backend-4u6j.onrender.com/auth/check", {
-         withCredentials:true,
-       }).then((res)=> {
-         if (!res.data.loggedIn) {
-          navigate("https://tradexpert-ku2t.onrender.com",{replace:true});
-         }
-       }).catch(()=> {
-          navigate("https://dashboard-ef9y.onrender.com",{replace:true});
-       });
-  },[]);
+  
 
   return (
     <div className="dashboard-container">

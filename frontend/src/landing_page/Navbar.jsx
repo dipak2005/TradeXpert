@@ -3,10 +3,27 @@ import "../landing_page/Navbar.css";
 import { Link } from "react-router-dom";
 import { useState ,useRef } from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const popRef =  useRef(null);
+
+ const navigate = useNavigate();
+ const isLogUser =  async ()=> {
+      await axios.get("https://backend-4u6j.onrender.com/auth/check", {
+         withCredentials:true,
+       }).then((res)=> {
+         if (!res.data.loggedIn) {
+          navigate("https://tradexpert-ku2t.onrender.com",{replace:true});
+         }
+       }).catch(()=> {
+          navigate("https://dashboard-ef9y.onrender.com",{replace:true});
+       });
+  };
+
+
 useEffect(() => {
   const handleOutSideClick = (event) => {
     if (popRef.current && !popRef.current.contains(event.target)) {
@@ -48,9 +65,9 @@ useEffect(() => {
 
           {menuOpen && (
             <div className="popup-menu" ref={popRef}>
-              <a href="https://dashboard-ef9y.onrender.com" target="_black" rel="noopener noreferrer">
+              
               <div className="product">
-                <img src="media/images/1.png" alt="Kite" />
+                <img src="media/images/1.png" alt="Kite" onClick={isLogUser} />
                 <p className="text-muted" style={{ fontWeight: 600 }}>
                   Kite
                 </p>
@@ -61,7 +78,7 @@ useEffect(() => {
                   Trading platform
                 </p>
               </div>
-              </a>
+             
             </div>
           )}
         </div>
