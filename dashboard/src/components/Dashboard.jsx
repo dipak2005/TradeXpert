@@ -22,10 +22,10 @@ const Dashboard = () => {
          withCredentials:true,
        }).then((res)=> {
          if (!res.data.loggedIn) {
-          navigate("http://localhost:5173",{replace:true,t});
+          navigate("https://tradexpert-ku2t.onrender.com",{replace:true,t});
          }
        }).catch(()=> {
-          navigate("http://localhost:5174",{replace:true});
+          navigate("https://dashboard-ef9y.onrender.com",{replace:true});
        });
   },[]);
 
