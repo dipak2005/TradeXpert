@@ -16,6 +16,7 @@ const GeneralContext = React.createContext({
 export const GeneralContextProvider = (props) => {
   const [isBuyWindowOpen, setIsBuyWindowOpen] = useState(false);
   const [selectedStockUID, setSelectedStockUID] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // BUY Section
   const handleOpenBuyWindow = (uid) => {
@@ -43,13 +44,16 @@ export const GeneralContextProvider = (props) => {
     
   };
 
+ 
+
   return (
-    <GeneralContext.Provider
+    <GeneralContext.Provider 
       value={{
         openBuyWindow: handleOpenBuyWindow,
         closeBuyWindow: handleCloseBuyWindow,
         openSellWindow:handleOpenSellWindow,
         closeSellWindow:handleCloseSellWindow,
+        isLoggedIn,setIsLoggedIn
       }}
     >
       {props.children}

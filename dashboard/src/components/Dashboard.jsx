@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Apps from "../components/Apps";
@@ -12,8 +12,23 @@ import WatchList from "../components/WatchList";
 import {GeneralContextProvider} from "./GeneralContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Dashboard = () => {
+   const navigate = useNavigate();
+  useEffect(()=> {
+       axios.get("https://backend-4u6j.onrender.com/auth/check", {
+         withCredentials:true,
+       }).then((res)=> {
+         if (!res.data.loggedIn) {
+          navigate("http://localhost:5173",{replace:true,t});
+         }
+       }).catch(()=> {
+          navigate("http://localhost:5174",{replace:true});
+       });
+  },[]);
+
   return (
     <div className="dashboard-container">
       <GeneralContextProvider>

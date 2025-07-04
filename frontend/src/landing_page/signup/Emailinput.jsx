@@ -3,12 +3,13 @@ import axios from "axios";
 import "react-phone-input-2/lib/style.css";
 import "../signup/Signup.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Emailinput = () => {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(1);
-  const [link ,setLink] = useState("");
+  const navigate = useNavigate();
   const baseUrl = "http://localhost:3000";
   const sendOtp = async () => {
     try {
@@ -25,10 +26,12 @@ const Emailinput = () => {
       const res = await axios.post(`${baseUrl}/verify-otp`, {
         email,
         otp: otp.toString(),
-      });
-      alert(res.data);
-    //  setLink(res.data.link);
+      }, {
+        withCredentials:true
+      }
+    );
       
+      navigate("http://localhost:5174");
     } catch (e) {
       alert("Invalid OTP");
     }
@@ -115,10 +118,10 @@ const Emailinput = () => {
           {/* </fieldset> */}
 
 
-             <a href={`http://localhost:5174`} target="_blank">
+             
           <button className="signup px-3 mt-3" onClick={verifyOTP} >Verify OTP
           </button>
-          </a>
+          {/* </a> */}
         </div>
       )}
     </div>
