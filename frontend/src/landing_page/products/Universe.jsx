@@ -1,7 +1,13 @@
 import React from 'react';
 import './css/Universe.css';
+import { useNavigate } from 'react-router-dom';
 
 function Universe() {
+  const naviagte = useNavigate();
+
+  const handleNavigate = () => {
+    naviagte("/signup");
+  }
 
      const platforms = [
     {
@@ -76,7 +82,7 @@ function Universe() {
           </div>
 
           {/* Sign Up Button */}
-          <button className="signup-button">
+          <button className="signup-button" onClick={handleNavigate}>
             Sign up for free
           </button>
         </div>

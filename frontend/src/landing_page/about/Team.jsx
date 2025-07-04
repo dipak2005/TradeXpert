@@ -39,7 +39,7 @@ function Team() {
 
           <p>Pro-Level Coder</p>
           <p>
-            Connect on <a href="https://github.com/dipak2005">Github</a>
+            Connect on <a href="https://github.com/dipak2005" target="_black">Github</a>
           </p>
         </div>
       </div>

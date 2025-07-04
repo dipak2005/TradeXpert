@@ -6,6 +6,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const nodemailer = require("nodemailer");
 
 const port = process.env.PORT || 3000;
 const url = process.env.MONGO_URL;
@@ -15,9 +16,9 @@ const HoldingsModel = require("../backend/model/HodingsModel");
 const PositionsModel = require("../backend/model/PositionsModel");
 const OrdersModel = require("../backend/model/OrdersModel");
 const SellsModel = require("../backend/model/SellModel");
+const OTP = require('../backend/model/OtpModel');
 const stockRoute = require("./routes/StockRoute");
-// const { default: Orders } = require("../dashboard/src/components/Orders");
-// const { default: Holdings } = require("../dashboard/src/components/Holding");
+
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -79,6 +80,59 @@ app.post("/sellStocks", async (req, res) => {
 
   res.send("Sell Stock Successfull!");
 });
+
+function generateOTP() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+app.post("/send-otp", async (req,res) => {
+ const { email } = req.body;
+ const otpCode = generateOTP();
+ const otp = new OTP.find();
+
+ await otp.save();
+
+ const transporter= nodemailer.createTransport({
+  service:"gmail",
+  auth:{
+    user:process.env.EMAIL,
+    pass:process.env.PASSWORD,
+  }
+ })
+
+ const mailOptions = {
+  from:process.env.EMAIL,
+  to: email,
+  subject:"Your OTP Code",
+  text:`Your OTP is ${otpCode}`
+ };
+
+
+ transporter.sendMail(mailOptions, (err,info)=> {
+   if (err) {
+    return res.status(500).send("Error sending mail");
+   }else {
+    res.send("OTP sent");
+   }
+ });
+});
+
+
+app.post("/verify-otp" , async(req,res) => {
+ 
+  const {email,otp} = req.body;
+
+  const valid = await OTP.find({email,otp});
+
+  if (!valid) {
+    return res.status(400).send("Invalid Otp");
+  }else {
+    await OTP.deleteMany({email});
+    res.send("OTP verified");
+  }
+});
+
+
 
 mongoose
   .connect(process.env.MONGO_URL)

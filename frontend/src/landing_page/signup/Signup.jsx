@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState  } from "react";
+import { Link } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import MobileInput from "./MobileInput";
-import '../signup/signup.css';
+import Emailinput from "./Emailinput";
+import "../signup/signup.css";
 import OpenAccount from "../OpenAccount";
 
 function Signup() {
@@ -33,11 +34,35 @@ function Signup() {
             {" "}
             Or track your existing application
           </p>
-          <MobileInput />
-          <button className="signup px-3">Get OTP</button>
+          <Emailinput />
+          <button className="signup px-3 ">Get OTP</button>
+           <div
+            className="google mt-3"
+            style={{
+              border: "1px solid #d1d1d1",
+              borderRadius: "100%",
+              width: "70px",
+              height: "70px",
+              overflow: "hidden",
+            }}
+          >
+            <Link >
+            <img
+              src="media/images/g.jpg"
+              alt=""
+              style={{
+                margin: "5px",
+                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+                paddingBottom:"10px",
+                paddingRight:'10px'
+              }}
+            /></Link>
+          </div>
         </div>
       </div>
-     <OpenAccount/>
+      <OpenAccount />
     </div>
   );
 }

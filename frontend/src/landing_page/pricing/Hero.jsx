@@ -1,7 +1,12 @@
 import React from "react";
 import '../OpenAccount.css';
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate("/signup")
+  }
   return (
     <div className="container ">
       <div className="row p-5 mt-5 border-bottom" style={{ display: "block" }}>
@@ -39,7 +44,7 @@ function Hero() {
             <h1 >Open a TradeXpert account</h1>
             <p className='text-center' style={{fontWeight:"500"}}>Modern platforms and apps, ₹0 investments, and flat ₹20 intraday and F&O trades.</p>
              
-             <button className='signup' style={{width:"230px"}}>Sign up for free</button>
+             <button className='signup' style={{width:"230px"}} onClick={handleNavigate}>Sign up for free</button>
              
         </div>
     </div>
