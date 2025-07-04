@@ -5,6 +5,7 @@ import "react-phone-input-2/lib/style.css";
 import Emailinput from "./Emailinput";
 import "../signup/signup.css";
 import OpenAccount from "../OpenAccount";
+import NameInput from "./nameInput";
 
 function Signup() {
   return (
@@ -34,6 +35,7 @@ function Signup() {
             {" "}
             Or track your existing application
           </p>
+          <NameInput />
           <Emailinput />
           
            <div

@@ -16,18 +16,18 @@ function Footer() {
           <p>
             © 2010 - 2025, TradeXpert Broking Ltd. <br /> All rights reserved.
           </p>
-          <div className="social-icons text-start">
-            <i className="fab fa-x-twitter"></i>&nbsp; &nbsp; &nbsp;
-            <i className="fab fa-facebook"></i>&nbsp; &nbsp; &nbsp;
-            <i className="fab fa-instagram"></i>&nbsp; &nbsp; &nbsp;
-            <i className="fab fa-linkedin"></i>
+          <div className="social-icons text-start d-flex">
+           
+            
+           
+            
+            <a href="https://github.com/dipak2005" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmISM8FPGoAkwq1td8qUiVuf99CynusHx8d7qzmyDfduKCTxUzU5WFClKIyGfIBFlpplc&usqp=CAU" style={{height:"20px", width:"25px"}} alt="" /></a>&nbsp; &nbsp; &nbsp;
+            <a href="https://www.linkedin.com/in/dipak-thakur05/" target="_blank"><i className="fab fa-linkedin"></i></a>&nbsp; &nbsp; &nbsp;
+            <a href="https://www.youtube.com/@CodeChakra" target="_blank"><i className="fab fa-youtube"></i></a>&nbsp; &nbsp; &nbsp;
+            <a href="https://api.whatsapp.com/send?phone=8154842742&text&type=phone_number&app_absent=0" target="_blank"><i className="fab fa-whatsapp"></i></a>&nbsp; &nbsp; &nbsp;
           </div>
           <hr />
-          <div className="secondary-icons text-start">
-            <i className="fab fa-youtube"></i>&nbsp; &nbsp; &nbsp;
-            <i className="fab fa-whatsapp"></i>&nbsp; &nbsp; &nbsp;
-            <i className="fab fa-telegram"></i>
-          </div>
+         
         </div>
         <div className="footer-links">
           <div className="col-3 ">

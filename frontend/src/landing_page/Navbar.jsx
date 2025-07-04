@@ -1,5 +1,4 @@
 import React from "react";
-import { isLoggedIn } from "./signup/auth";
 import "../landing_page/Navbar.css";
 import { Link } from "react-router-dom";
 import { useState ,useRef } from "react";

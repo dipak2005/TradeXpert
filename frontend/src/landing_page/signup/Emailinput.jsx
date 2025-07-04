@@ -115,7 +115,7 @@ const Emailinput = () => {
           {/* </fieldset> */}
 
 
-             <a href={"http://localhost:5174"} target="_blank">
+             <a href={`http://localhost:5174`} target="_blank">
           <button className="signup px-3 mt-3" onClick={verifyOTP} >Verify OTP
           </button>
           </a>
