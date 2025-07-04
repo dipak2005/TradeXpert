@@ -35,11 +35,11 @@ function Signup() {
             Or track your existing application
           </p>
           <Emailinput />
-          <button className="signup px-3 ">Get OTP</button>
+          
            <div
             className="google mt-3"
             style={{
-              border: "1px solid #d1d1d1",
+              // border: "1px solid #d1d1d1",
               borderRadius: "100%",
               width: "70px",
               height: "70px",

@@ -1,65 +1,128 @@
 import React, { useState } from "react";
-import PhoneInput from "react-phone-input-2";
+import axios from "axios";
 import "react-phone-input-2/lib/style.css";
+import "../signup/Signup.css";
+import { Link } from "react-router-dom";
 
-const MobileInput = () => {
+const Emailinput = () => {
   const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [step, setStep] = useState(1);
+  const [link ,setLink] = useState("");
+  const baseUrl = "http://localhost:3000";
+  const sendOtp = async () => {
+    try {
+      await axios.post(`${baseUrl}/send-otp`, { email });
+      alert("OTP sent to email");
+      setStep(2);
+    } catch (e) {
+      alert("Error sending OTP");
+    }
+  };
+
+  const verifyOTP = async () => {
+    try {
+      const res = await axios.post(`${baseUrl}/verify-otp`, {
+        email,
+        otp: otp.toString(),
+      });
+      alert(res.data);
+    //  setLink(res.data.link);
+      
+    } catch (e) {
+      alert("Invalid OTP");
+    }
+  };
 
   return (
     <div style={{ width: "320px", margin: "30px 30px 30px 0" }}>
-      {/* <PhoneInput
-        country={'in'}
-        value={phone}
-        onChange={phone => setPhone(phone)}
-        inputStyle={{
-          width: '100%',
-          height: '60px',
-          fontSize: '16px'
-          ,outline:"none",
-          boxShadow:"none" ,
-          color:"gray" 
-        }}
-        placeholder="Enter your mobile number"
-      /> */}
+      {step == 1 ? (
+        <div style={{ position: "relative", width: "100%" }}>
+          <span
+            className="icon"
+            style={{
+              position: "absolute",
+              top: "23%",
+              left: "15px",
+              transform: "translateY(-50%)",
+              fontSize: "20px",
+              pointerEvents: "none",
+              color: "gray",
+            }}
+          >
+            📩
+          </span>
+          <input
+            type="text"
+            placeholder="Enter your email"
+            value={email}
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
+            style={{
+              width: "100%",
+              height: "60px",
+              alignItems: "center",
+              fontSize: "16px",
+              outline: "none",
+              border: "1px  solid #d1d1d1",
+              // boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+              color: "gray",
+              paddingLeft: "45px",
+              borderRadius: "5px",
+            }}
+          />
 
-      {/* <fieldset> */}
-      <div style={{ position: "relative", width: "100%", }}>
-        <span
-          className="icon"
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "15px",
-            transform: "translateY(-50%)",
-            fontSize: "20px",
-            pointerEvents: "none",
-            color: "gray",
-          }}
-        >
-          📩
-        </span>
-        <input
-          type="text"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{
-            width: "100%",
-            height: "60px",
-            alignItems: "center",
-            fontSize: "16px",
-            outline: "none",
-            border: "1px  solid #d1d1d1",
-            // boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-            color: "gray",
-            paddingLeft: "45px",
-            borderRadius: "5px",
-          }}
-        />
-        {/* </fieldset> */}
-      </div>
+          <button className="signup px-3 mt-3" onClick={sendOtp}>
+            Get OTP
+          </button>
+          {/* </fieldset> */}
+        </div>
+      ) : (
+        <div style={{ position: "relative", width: "100%" }}>
+          <span
+            className="icon"
+            style={{
+              position: "absolute",
+              top: "23%",
+              left: "15px",
+              transform: "translateY(-50%)",
+              fontSize: "20px",
+              pointerEvents: "none",
+              color: "gray",
+            }}
+          >
+            🗝️
+          </span>
+          <input
+            type="text"
+            placeholder="000-000"
+            value={otp}
+            name="otp"
+            onChange={(e) => setOtp(e.target.value)}
+            style={{
+              width: "100%",
+              height: "60px",
+              alignItems: "center",
+              fontSize: "16px",
+              outline: "none",
+              border: "1px  solid #d1d1d1",
+              // boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+              color: "gray",
+              paddingLeft: "45px",
+              borderRadius: "5px",
+            }}
+          />
+          {/* </fieldset> */}
+
+
+             <a href={"http://localhost:5174"} target="_blank">
+          <button className="signup px-3 mt-3" onClick={verifyOTP} >Verify OTP
+          </button>
+          </a>
+        </div>
+      )}
     </div>
   );
 };
 
-export default MobileInput;
+export default Emailinput;
