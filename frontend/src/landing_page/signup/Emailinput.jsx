@@ -12,7 +12,7 @@ const Emailinput = () => {
   const baseUrl = "https://backend-4u6j.onrender.com";
   const sendOtp = async () => {
     try {
-      await axios.post(`${baseUrl}/send-otp`, { email });
+      await axios.post(`${baseUrl}/send-otp`, { email } ,{withCredentials:true});
       alert("OTP sent to email");
       setStep(2);
     } catch (e) {

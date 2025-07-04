@@ -26,10 +26,16 @@ const stockRoute = require("./routes/StockRoute");
 // app.use(cors());
 app.use(
   cors({
-    origin: ["https://tradexpert-ku2t.onrender.com/", "https://dashboard-ef9y.onrender.com", ],
+    origin: [
+      "https://tradexpert-ku2t.onrender.com",
+      "https://dashboard-ef9y.onrender.com",
+      "http://localhost:5173",
+      "http://localhost:5174",
+    ],
     credentials: true,
   })
 );
+app.options("*", cors());
 app.use(express.json());
 // app.use("/api/stocks", stockRoute);
 
@@ -42,7 +48,7 @@ const store = MongoStore.create({
   },
   touchAfter: 24 * 3600,
 });
-store.on("error", () => {
+store.on("error", (err) => {
   console.log("Error in MONGO SESSION STORE", err);
 });
 
@@ -52,14 +58,14 @@ const sessionOptions = {
   resave: false,
   saveUninitialized: true,
   cookie: {
-    expries: Date.now() + 7 * 24 * 3600 * 1000,
+    expries: new Date(Date.now() + 7 * 24 * 3600 * 1000),
     maxAge: 7 * 24 * 3600 * 1000,
     httpOnly: true,
   },
 };
 app.use(session(sessionOptions));
 
-// app.use(passport.initialize());// initialize the passport
+app.use(passport.initialize()); // initialize the passport
 app.use(passport.session());
 
 // passport.serializeUser(User.serializeUser());

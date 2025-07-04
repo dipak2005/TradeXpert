@@ -23,7 +23,7 @@ useEffect(() => {
   return (
     <div className="nav-main">
       <div className="container-fluid">
-        <Link to="/">
+        <a href="/">
           <img
             src="media/images/t3.png"
             alt=""
@@ -33,7 +33,7 @@ useEffect(() => {
               padding: "3px 0 3px 200px",
             }}
           />
-        </Link>
+        </a>
       </div>
       <div className="navbar-button ms-auto">
         <div className="nav-links ">
