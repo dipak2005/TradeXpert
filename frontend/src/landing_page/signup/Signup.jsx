@@ -5,7 +5,7 @@ import "react-phone-input-2/lib/style.css";
 import Emailinput from "./Emailinput";
 import "../signup/signup.css";
 import OpenAccount from "../OpenAccount";
-import NameInput from "./nameInput";
+import NameInput from "../signup/NameInput";
 
 function Signup() {
   return (
@@ -25,7 +25,7 @@ function Signup() {
 
       <div className="row mt-5 ">
         <div className="col-6 p-5">
-          <img src="media/images/account_open.svg" alt="" />
+          <img src="/media/images/account_open.svg" alt="" />
         </div>
         <div className="col-6 p-5">
           <h2 className="mt-3" style={{ fontSize: "35px", fontWeight: "500" }}>

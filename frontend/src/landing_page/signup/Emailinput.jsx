@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "react-phone-input-2/lib/style.css";
 import "../signup/Signup.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -121,7 +120,7 @@ const Emailinput = () => {
              
           <button className="signup px-3 mt-3" onClick={verifyOTP} >Verify OTP
           </button>
-          {/* </a> */}
+          
         </div>
       )}
     </div>
