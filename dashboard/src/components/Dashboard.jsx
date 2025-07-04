@@ -22,7 +22,7 @@ const Dashboard = () => {
          withCredentials:true,
        }).then((res)=> {
          if (!res.data.loggedIn) {
-          navigate("https://tradexpert-ku2t.onrender.com",{replace:true,t});
+          navigate("https://tradexpert-ku2t.onrender.com",{replace:true});
          }
        }).catch(()=> {
           navigate("https://dashboard-ef9y.onrender.com",{replace:true});

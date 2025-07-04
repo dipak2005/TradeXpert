@@ -30,7 +30,7 @@ const Emailinput = () => {
       }
     );
       
-      navigate("http://localhost:5174");
+      navigate("https://dashboard-ef9y.onrender.com");
     } catch (e) {
       alert("Invalid OTP");
     }
