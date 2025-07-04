@@ -9,7 +9,7 @@ const Emailinput = () => {
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
-  const baseUrl = "http://localhost:3000";
+  const baseUrl = "https://backend-4u6j.onrender.com";
   const sendOtp = async () => {
     try {
       await axios.post(`${baseUrl}/send-otp`, { email });

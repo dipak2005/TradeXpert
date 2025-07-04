@@ -48,7 +48,7 @@ useEffect(() => {
 
           {menuOpen && (
             <div className="popup-menu" ref={popRef}>
-              <a href="http://localhost:5174" target="_black" rel="noopener noreferrer">
+              <a href="https://dashboard-ef9y.onrender.com" target="_black" rel="noopener noreferrer">
               <div className="product">
                 <img src="media/images/1.png" alt="Kite" />
                 <p className="text-muted" style={{ fontWeight: 600 }}>
