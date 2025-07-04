@@ -16,7 +16,7 @@ function Navbar() {
          withCredentials:true,
        }).then((res)=> {
          if (!res.data.loggedIn) {
-          navigate("https://tradexpert-ku2t.onrender.com",{replace:true});
+          navigate("https://tradexpert-ku2t.onrender.com/signup",{replace:true});
          }
        }).catch(()=> {
           navigate("https://dashboard-ef9y.onrender.com",{replace:true});
