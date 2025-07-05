@@ -21,12 +21,14 @@ function Navbar() {
         window.open("https://dashboard-ef9y.onrender.com/dashboard", "_blank");
       } else {
         // 🚫 Not verified, redirect to signup
-        toast.info("Please complete verification first.");
+        
         navigate("/signup");
+        toast.info("Please complete verification first.");
       }
     } catch (err) {
-      toast.error("Unable to verify session.");
+     
       navigate("/signup");
+       toast.error("Unable to verify session.");
     }
   };
 

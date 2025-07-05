@@ -39,9 +39,9 @@ const Emailinput = ({name}) => {
         withCredentials:true
       }
     );
-      toast.success("OTP Verified");
+     
       window.open("https://dashboard-ef9y.onrender.com","_blank");
-      
+       toast.success("OTP Verified");
       // navigate("https://dashboard-ef9y.onrender.com");
     } catch (e) {
       toast.error("Invalid OTP");
