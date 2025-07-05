@@ -206,9 +206,9 @@ app.post("/verify-otp", async (req, res) => {
 
 // endpoint to check user is loggdin or not
 app.get("/auth/check", async (req, res) => {
-  if (!req.session.id) return res.json({ loggedIn: false });
+  if (!req.session.userId) return res.json({ loggedIn: false });
 
-  const user = await UserModel.findById(req.session.id);
+  const user = await UserModel.findById(req.session.userId);
   let name = user.name;
   if (user?.isVerified) {
     return res.json({ loggedIn: true, user: name });
