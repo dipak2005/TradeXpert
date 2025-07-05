@@ -10,7 +10,7 @@ import NameInput from "../signup/NameInput";
 function Signup() {
 
 const [name, setName] = useState("");
-const [email, setEmail] = useState("");
+
 
 
   return (
@@ -41,7 +41,7 @@ const [email, setEmail] = useState("");
             Or track your existing application
           </p>
           <NameInput name={name} setName={setName} />
-          <Emailinput name={name} setEmail={setEmail}/>
+          <Emailinput name={name} />
           
            <div
             className="google mt-3"

@@ -3,17 +3,25 @@ import axios from "axios";
 import "../signup/signup.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
-const Emailinput = ({name,email,setEmail}) => {
-  // const [email, setEmail] = useState("");
+const Emailinput = ({name}) => {
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
   const baseUrl = "https://backend-4u6j.onrender.com";
   const sendOtp = async () => {
+
+     if (!email || !name) {
+      toast.warning("Name and email required");
+      return;
+    }
+
+
     try {
-      await axios.post(`${baseUrl}/send-otp`, { email } ,{withCredentials:true});
+      await axios.post(`${baseUrl}/send-otp`, { email,name} ,{withCredentials:true});
       toast.success("OTP sent to email");
       setStep(2);
     } catch (e) {
