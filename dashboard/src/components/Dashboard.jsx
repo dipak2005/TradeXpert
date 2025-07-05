@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_BASE_URL}/auth/check`, { withCredentials: true })
+      .get("https://backend-4u6j.onrender.com/auth/check", { withCredentials: true })
       .then((res) => {
         
         if (res.data.loggedIn) {

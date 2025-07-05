@@ -6,42 +6,47 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
-const Emailinput = ({name}) => {
+const Emailinput = ({ name }) => {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
-  const baseUrl = `${import.meta.env.VITE_API_BASE_URL}`;
+  const baseUrl = "https://backend-4u6j.onrender.com";
   const sendOtp = async () => {
-
-     if (!email || !name) {
+    if (!email || !name) {
       toast.warning("Name and email required");
       return;
     }
 
-
     try {
-      await axios.post(`${baseUrl}/send-otp`, { email,name} ,{withCredentials:true});
+      await axios.post(
+        `${baseUrl}/send-otp`,
+        { email, name },
+        { withCredentials: true }
+      );
       toast.success("OTP sent to email");
       setStep(2);
     } catch (e) {
-     toast.error("Error in sending OTP");
+      toast.error("Error in sending OTP");
     }
   };
 
   const verifyOTP = async () => {
     try {
-      const res = await axios.post(`${baseUrl}/verify-otp`, {
-        email,
-        otp: otp.toString(),
-        name,
-      }, {
-        withCredentials:true
-      }
-    );
-     
-      window.open(`${import.meta.env.VITE_FRONTEND_BASE_URL}`,"_blank");
-       toast.success("OTP Verified");
+      const res = await axios.post(
+        `${baseUrl}/verify-otp`,
+        {
+          email,
+          otp: otp.toString(),
+          name,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      window.open("https://dashboard-ef9y.onrender.com", "_blank");
+      toast.success("OTP Verified");
       navigate("/");
     } catch (e) {
       toast.error("Invalid OTP");
@@ -128,11 +133,9 @@ const Emailinput = ({name}) => {
           />
           {/* </fieldset> */}
 
-
-             
-          <button className="signup px-3 mt-3" onClick={verifyOTP} >Verify OTP
+          <button className="signup px-3 mt-3" onClick={verifyOTP}>
+            Verify OTP
           </button>
-          
         </div>
       )}
     </div>

@@ -38,8 +38,10 @@ const stockRoute = require("./routes/StockRoute");
 app.use(
   cors({
     origin: [
-      `${process.env.VITE_FRONTEND_BASE_URL}`,
-      `${process.env.VITE_DASHBOARD_BASE_URL}`,
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://tradexpert-ku2t.onrender.com",
+      "https://dashboard-ef9y.onrender.com",
     ],
     credentials: true,
   })

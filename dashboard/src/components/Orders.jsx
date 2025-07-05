@@ -9,7 +9,7 @@ const Orders = ({uid}) => {
    useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/allOrders`);
+        const res = await axios.get("https://backend-4u6j.onrender.com/allOrders");
         setAllOrders(res.data);
       } catch (error) {
         console.error("Error fetching orders:", error.message);
