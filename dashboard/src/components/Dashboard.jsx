@@ -35,6 +35,7 @@ const Dashboard = () => {
       })
       .finally(() => setLoading(false));
   });
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="dashboard-container">
