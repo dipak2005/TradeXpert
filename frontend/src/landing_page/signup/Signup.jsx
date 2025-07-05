@@ -40,7 +40,7 @@ const [name, setName] = useState("");
             {" "}
             Or track your existing application
           </p>
-          <NameInput name={name} setName={name} />
+          <NameInput name={name} setName={setName} />
           <Emailinput name={name} />
           
            <div
