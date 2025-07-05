@@ -1,8 +1,8 @@
 import React,{useState} from 'react';
 import "../signup/signup.css";
 
-function NameInput() {
-   const [name, setName] = useState("");
+function NameInput({name,setName}) {
+  //  const [name, setName] = useState("");
   return ( 
     <div style={{ width: "320px", margin: "30px 30px 30px 0" }}>
      <div style={{ position: "relative", width: "100%" }}>

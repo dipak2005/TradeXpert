@@ -48,6 +48,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const store = MongoStore.create({
   mongoUrl: process.env.MONGO_URL,
@@ -215,9 +216,7 @@ app.get("/auth/check", async (req, res) => {
 
   if (user?.isVerified) {
     return res.json({
-      loggedIn: true,
-      user: { name: user.name, email: user.email, id: user.userId },
-    });
+      loggedIn: true, user: { name: user.name, email: user.email, id: user.userId } });
   } else {
     return res.json({ loggedIn: false });
   }
