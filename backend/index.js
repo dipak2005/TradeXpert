@@ -225,6 +225,10 @@ app.get("/auth/check", async (req, res) => {
     return res.json({loggedIn:false});
   }
 });
+app.get("/" , (req,res) => {
+   res.send("Done!");
+});
+
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
