@@ -27,8 +27,6 @@ const Dashboard = () => {
       .then((res) => {
         if (res.data.loggedIn) {
           setName(res.data.user);
-        } else {
-          window.location.href = "https://tradexpert-ku2t.onrender.com/signup";
         }
       }).catch(()=>{
         window.location.href="https://dashboard-ef9y.onrender.com";
