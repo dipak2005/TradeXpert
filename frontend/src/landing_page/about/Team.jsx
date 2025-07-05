@@ -24,7 +24,7 @@ function Team() {
             className="text-center"
             style={{ fontWeight: "500", color: "#666666" }}
           >
-            Founder, CEO
+            Aspiring Software developer
           </p>
         </div>
         <div className="col-5 ">

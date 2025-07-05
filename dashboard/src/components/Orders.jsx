@@ -9,7 +9,7 @@ const Orders = ({uid}) => {
    useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("https://backend-4u6j.onrender.com/allOrders");
+        const res = await axios.get("http://localhost:3000/allOrders");
         setAllOrders(res.data);
       } catch (error) {
         console.error("Error fetching orders:", error.message);

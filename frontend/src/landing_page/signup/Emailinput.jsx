@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../signup/signup.css";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const Emailinput = () => {
@@ -9,14 +10,14 @@ const Emailinput = () => {
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
-  const baseUrl = "https://backend-4u6j.onrender.com";
+  const baseUrl = "http://localhost:3000";
   const sendOtp = async () => {
     try {
       await axios.post(`${baseUrl}/send-otp`, { email } ,{withCredentials:true});
-      alert("OTP sent to email");
+      toast.success("OTP sent to email");
       setStep(2);
     } catch (e) {
-      alert("Error sending OTP");
+     toast.error("Error in sending OTP");
     }
   };
 
@@ -29,10 +30,12 @@ const Emailinput = () => {
         withCredentials:true
       }
     );
+      toast.success("OTP Verified");
+      window.open("http://localhost:5173");
       
-      navigate("https://dashboard-ef9y.onrender.com");
+      // navigate("https://dashboard-ef9y.onrender.com");
     } catch (e) {
-      alert("Invalid OTP");
+      toast.error("Invalid OTP");
     }
   };
 

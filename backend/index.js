@@ -27,8 +27,7 @@ const stockRoute = require("./routes/StockRoute");
 app.use(
   cors({
     origin: [
-      "https://tradexpert-ku2t.onrender.com",
-      "https://dashboard-ef9y.onrender.com",
+      
       "http://localhost:5173",
       "http://localhost:5174",
     ],
@@ -101,7 +100,7 @@ app.post("/newOrder", async (req, res) => {
 
   if (newOrder.mode === "SELL") {
     const holding = await HoldingsModel.findOne({
-      // userId: req.params.userId,
+      userId: req.params.userId,
       name: req.body.name,
     });
 

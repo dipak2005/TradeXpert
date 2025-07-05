@@ -8,7 +8,7 @@ const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
 
   useEffect(() => {
-    axios.get("https://backend-4u6j.onrender.com/allHoldings").then((res) => {
+    axios.get("http://localhost:3000/allHoldings").then((res) => {
       console.log(res.data);
       setAllHoldings(res.data);
     });

@@ -1,42 +1,52 @@
 import React from "react";
 import "../landing_page/Navbar.css";
 import { Link } from "react-router-dom";
-import { useState ,useRef } from "react";
+import { useState, useRef } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const popRef =  useRef(null);
+  const popRef = useRef(null);
 
- const navigate = useNavigate();
- const isLogUser =  async ()=> {
-      await axios.get("https://backend-4u6j.onrender.com/auth/check", {
-         withCredentials:true,
-       }).then((res)=> {
-         if (!res.data.loggedIn) {
-          navigate("https://tradexpert-ku2t.onrender.com/signup",{replace:true});
-         }
-       }).catch(()=> {
-          navigate("https://dashboard-ef9y.onrender.com",{replace:true});
-       });
+  const navigate = useNavigate();
+
+  const isLogUser = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/auth/check", {
+        withCredentials: true,
+      });
+      if (!res.data.loggedIn) {
+       
+        window.open("http://localhost:5173","_blank");
+         toast.warn("You are not logged in", {
+              position:"top-right",
+              autoClose:3000,
+             })
+      } else {
+        window.open("http://localhost:5174","_blank");
+      }
+    } catch (err) {
+       toast.error("Failed to verify login");
+    window.open("http://localhost:5173", "_blank");
+    }
   };
 
+  useEffect(() => {
+    const handleOutSideClick = (event) => {
+      if (popRef.current && !popRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
 
-useEffect(() => {
-  const handleOutSideClick = (event) => {
-    if (popRef.current && !popRef.current.contains(event.target)) {
-       setMenuOpen(false);
-    }
-  }
+    document.addEventListener("mousedown", handleOutSideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutSideClick);
+    };
+  });
 
-  document.addEventListener("mousedown",handleOutSideClick);
-  return () => {
-    document.removeEventListener("mousedown",handleOutSideClick);
-  }
-})
-  
   return (
     <div className="nav-main">
       <div className="container-fluid">
@@ -65,9 +75,12 @@ useEffect(() => {
 
           {menuOpen && (
             <div className="popup-menu" ref={popRef}>
-              
               <div className="product">
-                <img src="media/images/1.png" alt="Kite" onClick={isLogUser} />
+                <img style={{cursor:"pointer"}}
+                  src="media/images/1.png"
+                  alt="Kite"
+                  onClick={() => isLogUser()}
+                />
                 <p className="text-muted" style={{ fontWeight: 600 }}>
                   Kite
                 </p>
@@ -78,7 +91,6 @@ useEffect(() => {
                   Trading platform
                 </p>
               </div>
-             
             </div>
           )}
         </div>

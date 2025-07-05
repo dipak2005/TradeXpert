@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema({
   name: String,
   otp: {
     type: String,
+    required:true
   },
 
   otpExpires: {
