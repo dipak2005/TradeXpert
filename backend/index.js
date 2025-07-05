@@ -192,7 +192,7 @@ app.post("/verify-otp", async (req, res) => {
   await user.save();
   await OTP.deleteMany({ email });
 
-  req.session.id = user._id;
+  req.session.userId = user._id;
 
   return res.status(200).json({
     message: "OTP verified successfully.",
