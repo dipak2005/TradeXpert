@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const Emailinput = () => {
-  const [email, setEmail] = useState("");
+const Emailinput = ({name,email,setEmail}) => {
+  // const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
-  const baseUrl = "http://localhost:3000";
+  const baseUrl = "https://backend-4u6j.onrender.com";
   const sendOtp = async () => {
     try {
       await axios.post(`${baseUrl}/send-otp`, { email } ,{withCredentials:true});
@@ -26,12 +26,13 @@ const Emailinput = () => {
       const res = await axios.post(`${baseUrl}/verify-otp`, {
         email,
         otp: otp.toString(),
+        name,
       }, {
         withCredentials:true
       }
     );
       toast.success("OTP Verified");
-      window.open("http://localhost:5173");
+      window.open("https://dashboard-ef9y.onrender.com","_blank");
       
       // navigate("https://dashboard-ef9y.onrender.com");
     } catch (e) {

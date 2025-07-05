@@ -1,39 +1,35 @@
-import React from "react";
-import "../landing_page/Navbar.css";
-import { Link } from "react-router-dom";
-import { useState, useRef } from "react";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import "../landing_page/Navbar.css";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const popRef = useRef(null);
-
   const navigate = useNavigate();
 
   const isLogUser = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/auth/check", {
+      const res = await axios.get("https://backend-4u6j.onrender.com/auth/check", {
         withCredentials: true,
       });
-      if (!res.data.loggedIn) {
-       
-        window.open("http://localhost:5173","_blank");
-         toast.warn("You are not logged in", {
-              position:"top-right",
-              autoClose:3000,
-             })
+
+      if (res.data.loggedIn) {
+        // ✅ User is verified, open dashboard
+        window.open("https://dashboard-ef9y.onrender.com/dashboard", "_blank");
       } else {
-        window.open("http://localhost:5174","_blank");
+        // 🚫 Not verified, redirect to signup
+        toast.info("Please complete verification first.");
+        navigate("/signup");
       }
     } catch (err) {
-       toast.error("Failed to verify login");
-    window.open("http://localhost:5173", "_blank");
+      toast.error("Unable to verify session.");
+      navigate("/signup");
     }
   };
 
+  // Close menu on outside click
   useEffect(() => {
     const handleOutSideClick = (event) => {
       if (popRef.current && !popRef.current.contains(event.target)) {
@@ -45,7 +41,7 @@ function Navbar() {
     return () => {
       document.removeEventListener("mousedown", handleOutSideClick);
     };
-  });
+  }, []);
 
   return (
     <div className="nav-main">
@@ -53,7 +49,7 @@ function Navbar() {
         <a href="/">
           <img
             src="media/images/t3.png"
-            alt=""
+            alt="Logo"
             style={{
               width: "350px",
               height: "50px",
@@ -62,8 +58,9 @@ function Navbar() {
           />
         </a>
       </div>
+
       <div className="navbar-button ms-auto">
-        <div className="nav-links ">
+        <div className="nav-links">
           <Link to="/signup">Signup</Link>
           <Link to="/about">About</Link>
           <Link to="/product">Products</Link>
@@ -76,18 +73,16 @@ function Navbar() {
           {menuOpen && (
             <div className="popup-menu" ref={popRef}>
               <div className="product">
-                <img style={{cursor:"pointer"}}
+                <img
+                  style={{ cursor: "pointer" }}
                   src="media/images/1.png"
                   alt="Kite"
-                  onClick={() => isLogUser()}
+                  onClick={isLogUser}
                 />
                 <p className="text-muted" style={{ fontWeight: 600 }}>
                   Kite
                 </p>
-                <p
-                  className="text-muted"
-                  style={{ fontSize: "12px", color: "#777" }}
-                >
+                <p className="text-muted" style={{ fontSize: "12px" }}>
                   Trading platform
                 </p>
               </div>

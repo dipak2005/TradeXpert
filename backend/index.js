@@ -1,20 +1,35 @@
+
+// load data from .env file
 require("dotenv").config();
+
+// express
 const express = require("express");
 const app = express();
+
+// mongodb
 const mongoose = require("mongoose");
+
+// connect cross origin 
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
+// sending mail through node
 const nodemailer = require("nodemailer");
+
+// store the session use 
 const crypto = require("crypto");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const passport = require("passport");
-const LocalStratergy = require("passport-local");
 
+
+// data from .env file
 const port = process.env.PORT || 3002;
 const url = process.env.MONGO_URL;
 
 const path = require("path");
+
+
+// models 
 const HoldingsModel = require("../backend/model/HodingsModel");
 const PositionsModel = require("../backend/model/PositionsModel");
 const OrdersModel = require("../backend/model/OrdersModel");
@@ -23,22 +38,15 @@ const OTP = require("../backend/model/OtpModel");
 const UserModel = require("../backend/model/UserModel");
 const stockRoute = require("./routes/StockRoute");
 
-// app.use(cors());
+
 app.use(
   cors({
-    origin: [
-      
-      "http://localhost:5173",
-      "http://localhost:5174",
-    ],
+    origin: ["http://localhost:5173", "http://localhost:5174"],
     credentials: true,
   })
 );
 
 app.use(express.json());
-// app.use("/api/stocks", stockRoute);
-
-// // app.use("/",stockRoute);
 
 const store = MongoStore.create({
   mongoUrl: process.env.MONGO_URL,
@@ -57,39 +65,37 @@ const sessionOptions = {
   resave: false,
   saveUninitialized: true,
   cookie: {
-    expries: new Date(Date.now() + 7 * 24 * 3600 * 1000),
+    expires: new Date(Date.now() + 7 * 24 * 3600 * 1000),
     maxAge: 7 * 24 * 3600 * 1000,
     httpOnly: true,
   },
 };
 app.use(session(sessionOptions));
 
-app.use(passport.initialize()); // initialize the passport
-app.use(passport.session());
 
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
 
-app.use((req, res, next) => {
-  res.locals.currUser = req.user;
-  next();
-});
-
+//  endpoint of all-Holdings data
 app.get("/allHoldings", async (req, res) => {
   let allholdings = await HoldingsModel.find({});
   return res.json(allholdings);
 });
 
+
+// endpoint of allposition data
 app.get("/allPositions", async (req, res) => {
   let allpositions = await PositionsModel.find({});
   return res.json(allpositions);
 });
 
+
+// endpoint of allorders data
 app.get("/allOrders", async (req, res) => {
   let allOrders = await OrdersModel.find({});
   return res.json(allOrders);
 });
 
+
+// endpoint of neworder data
 app.post("/newOrder", async (req, res) => {
   let newOrder = new OrdersModel({
     name: req.body.name,
@@ -100,7 +106,7 @@ app.post("/newOrder", async (req, res) => {
 
   if (newOrder.mode === "SELL") {
     const holding = await HoldingsModel.findOne({
-      userId: req.params.userId,
+      userId: req.body.userId,
       name: req.body.name,
     });
 
@@ -117,6 +123,8 @@ app.post("/newOrder", async (req, res) => {
   res.send("Order Saved!");
 });
 
+
+// endoint of selling stocks data
 app.post("/sellStocks", async (req, res) => {
   let sellStocks = new SellsModel({
     name: req.body.name,
@@ -130,18 +138,22 @@ app.post("/sellStocks", async (req, res) => {
   res.send("Sell Stock Successfull!");
 });
 
+
+// generate random otp 
 function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-app.post("/send-otp", async (req, res) => {
-  const { email } = req.body;
 
-  if (!email) return res.status(400).send("Email is required");
+// endpoint to send the otp to desired email
+app.post("/send-otp", async (req, res) => {
+
+  const { email, name } = req.body;
+  console.log(email,name , "sending");
+  if (!email || !name) return res.status(400).send("Email and name required");
 
   const otpCode = generateOTP();
   const otp = new OTP({ email, otp: otpCode });
-
   await otp.save();
 
   const transporter = nodemailer.createTransport({
@@ -170,9 +182,11 @@ app.post("/send-otp", async (req, res) => {
   });
 });
 
-app.post("/verify-otp", async (req, res) => {
-  const { email, otp } = req.body;
 
+//  endpoint to verify the otp
+app.post("/verify-otp", async (req, res) => {
+  const { email, otp, name } = req.body;
+   console.log(email,name , "verify")
   const valid = await OTP.findOne({ email, otp });
 
   if (!valid) return res.status(404).send("Invalid otp");
@@ -180,16 +194,14 @@ app.post("/verify-otp", async (req, res) => {
   let user = await UserModel.findOne({ email });
 
   if (!user) {
-    user = new UserModel({ email, name: req.body.name, isVerified: true });
-    await user.save();
+    user = new UserModel({ email, name, isVerified: false });
   } else {
     user.isVerified = true;
-    await user.save();
   }
-
+  await user.save();
   await OTP.deleteMany({ email });
 
-  req.session.userId = user._id;
+  req.session.id = user._id;
 
   return res.status(200).json({
     message: "OTP verified successfully.",
@@ -201,11 +213,16 @@ app.post("/verify-otp", async (req, res) => {
   });
 });
 
-app.get("/auth/check", (req, res) => {
-  if (req.session.userId) {
-    res.json({ loggedIn: true });
-  } else {
-    res.json({ loggedIn: false });
+// endpoint to check user is loggdin or not
+app.get("/auth/check", async (req, res) => {
+  if (!req.session.id) return res.json({ loggedIn: false });
+
+  const user = await  UserModel.findById(req.session.id);
+ let name = user.name;
+  if (user?.isVerified) {
+    return res.json({loggedIn:true,user:name  });
+  }else{
+    return res.json({loggedIn:false});
   }
 });
 mongoose

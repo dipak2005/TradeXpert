@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect,useState} from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Apps from "../components/Apps";
@@ -16,7 +16,23 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Dashboard = () => {
-  
+  const [loading, setLoading] = useState(true);
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    axios
+      .get("https://backend-4u6j.onrender.com/auth/check", { withCredentials: true })
+      .then((res) => {
+        if (res.data.loggedIn) {
+          setName(res.data.user);
+        } else {
+          window.location.href = "https://tradexpert-ku2t.onrender.com/signup";
+        }
+      })
+      .finally(() => setLoading(false));
+  });
 
   return (
     <div className="dashboard-container">
@@ -26,7 +42,7 @@ const Dashboard = () => {
       </GeneralContextProvider>
       <div className="content">
         <Routes>
-          <Route exact path="/" element={<Summary />} />
+          <Route exact path="/dashboard" element={<Summary name={name} />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/holdings" element={<Holdings />} />
           <Route path="/positions" element={<Positions />} />

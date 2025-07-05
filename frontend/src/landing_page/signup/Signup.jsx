@@ -8,6 +8,11 @@ import OpenAccount from "../OpenAccount";
 import NameInput from "../signup/NameInput";
 
 function Signup() {
+
+const [name, setName] = useState("");
+const [email, setEmail] = useState("");
+
+
   return (
     <div className="container p-5 ">
       <div className="row d-block">
@@ -35,8 +40,8 @@ function Signup() {
             {" "}
             Or track your existing application
           </p>
-          <NameInput />
-          <Emailinput />
+          <NameInput name={name} setName={setName} />
+          <Emailinput name={name} setEmail={setEmail}/>
           
            <div
             className="google mt-3"

@@ -15,7 +15,7 @@ const BuyActionWindow = ({ uid }) => {
   const [stockPrice, setStockPrice] = useState(0.0);
 
   const handleBuyClick = () => {
-    axios.post("http://localhost:3000/newOrder", {
+    axios.post("https://backend-4u6j.onrender.com/newOrder", {
       name: uid,
       qty: stockQuantity,
       price: stockPrice,
@@ -36,20 +36,12 @@ const BuyActionWindow = ({ uid }) => {
     const [stockPrice, setStockPrice] = useState(0.0);
     
     const handleSellClick = () => {
-      axios.post("http://localhost:3000/sellStocks" , {
+      axios.post("https://backend-4u6j.onrender.com/sellStocks" , {
          name: uid,
       qty: stockQuantity,
       price: stockPrice,
       mode: "SELL",
       });
-
-
-    //  const userStock =  HoldingsModel.find((h)=> h.name === uid);
-     
-    //  if (!userStock || userStock.qty < stockQuantity) {
-    //   toast.error("You don't have enough Quantity to sell ");
-    //  }
-    //  return;
     }
   }
 
