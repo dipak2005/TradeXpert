@@ -209,9 +209,12 @@ app.get("/auth/check", async (req, res) => {
   if (!req.session.userId) return res.json({ loggedIn: false });
 
   const user = await UserModel.findById(req.session.userId);
-  let name = user.name;
+   if (!user) {
+    return res.json({ loggedIn: false, user: null });
+  }
+ 
   if (user?.isVerified) {
-    return res.json({ loggedIn: true, user: name });
+    return res.json({ loggedIn: true, user: {name:user.name,email:user.email,id:user.userId} });
   } else {
     return res.json({ loggedIn: false });
   }

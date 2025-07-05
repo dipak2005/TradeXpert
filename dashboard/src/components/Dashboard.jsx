@@ -19,21 +19,26 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const [login, setLogging] = useState(false);
 
 
   useEffect(() => {
     axios
       .get("https://backend-4u6j.onrender.com/auth/check", { withCredentials: true })
       .then((res) => {
+        
         if (res.data.loggedIn) {
-          setName(res.data.user);
+         
+          setName(name);
+          setLogging(true);
+          console.log("response :", res.data.user);
         }
       }).catch(()=>{
-        window.location.href="https://dashboard-ef9y.onrender.com/dashboard";
+        window.location.href="https://dashboard-ef9y.onrender.com";
       })
       .finally(() => setLoading(false));
   });
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="text-center">Loading...</p>;
 
   return (
     <div className="dashboard-container">
@@ -43,7 +48,7 @@ const Dashboard = () => {
       </GeneralContextProvider>
       <div className="content">
         <Routes>
-          <Route exact path="/dashboard" element={<Summary name={name} />} />
+          <Route path="/" element={<Summary name={name} />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/holdings" element={<Holdings />} />
           <Route path="/positions" element={<Positions />} />
