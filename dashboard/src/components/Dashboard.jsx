@@ -29,7 +29,7 @@ const Dashboard = () => {
           setName(res.data.user);
         }
       }).catch(()=>{
-        window.location.href="https://dashboard-ef9y.onrender.com";
+        window.location.href="https://dashboard-ef9y.onrender.com/dashboard";
       })
       .finally(() => setLoading(false));
   });
@@ -43,7 +43,7 @@ const Dashboard = () => {
       </GeneralContextProvider>
       <div className="content">
         <Routes>
-          <Route exact path="/" element={<Summary name={name} />} />
+          <Route exact path="/dashboard" element={<Summary name={name} />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/holdings" element={<Holdings />} />
           <Route path="/positions" element={<Positions />} />
