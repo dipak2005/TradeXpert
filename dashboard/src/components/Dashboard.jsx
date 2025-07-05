@@ -24,17 +24,17 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("https://backend-4u6j.onrender.com/auth/check", { withCredentials: true })
+      .get(`${import.meta.env.VITE_API_BASE_URL}/auth/check`, { withCredentials: true })
       .then((res) => {
         
         if (res.data.loggedIn) {
          
           setName(name);
           setLogging(true);
-          console.log("response :", res.data.user);
+          console.log("response :", res.data.user.name);
         }
       }).catch(()=>{
-        window.location.href="https://dashboard-ef9y.onrender.com";
+        window.location.href=`${import.meta.env.VITE_DASHBOARD_BASE_URL}`;
       })
       .finally(() => setLoading(false));
   });

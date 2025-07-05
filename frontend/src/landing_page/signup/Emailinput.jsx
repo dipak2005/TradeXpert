@@ -11,7 +11,7 @@ const Emailinput = ({name}) => {
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
-  const baseUrl = "https://backend-4u6j.onrender.com";
+  const baseUrl = `${import.meta.env.VITE_API_BASE_URL}`;
   const sendOtp = async () => {
 
      if (!email || !name) {
@@ -40,7 +40,7 @@ const Emailinput = ({name}) => {
       }
     );
      
-      window.open("https://dashboard-ef9y.onrender.com","_blank");
+      window.open(`${import.meta.env.VITE_FRONTEND_BASE_URL}`,"_blank");
        toast.success("OTP Verified");
       navigate("/");
     } catch (e) {

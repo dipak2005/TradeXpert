@@ -15,7 +15,7 @@ const BuyActionWindow = ({ uid }) => {
   const [stockPrice, setStockPrice] = useState(0.0);
 
   const handleBuyClick = () => {
-    axios.post("https://backend-4u6j.onrender.com/newOrder", {
+    axios.post(`${import.meta.env.VITE_API_BASE_URL}/newOrder`, {
       name: uid,
       qty: stockQuantity,
       price: stockPrice,
@@ -36,7 +36,7 @@ const BuyActionWindow = ({ uid }) => {
     const [stockPrice, setStockPrice] = useState(0.0);
     
     const handleSellClick = () => {
-      axios.post("https://backend-4u6j.onrender.com/sellStocks" , {
+      axios.post(`${import.meta.env.VITE_API_BASE_URL}/sellStocks` , {
          name: uid,
       qty: stockQuantity,
       price: stockPrice,

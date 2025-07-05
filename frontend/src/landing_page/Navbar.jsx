@@ -12,13 +12,13 @@ function Navbar() {
 
   const isLogUser = async () => {
     try {
-      const res = await axios.get("https://backend-4u6j.onrender.com/auth/check", {
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/auth/check`, {
         withCredentials: true,
       });
 
       if (res.data.loggedIn) {
         // ✅ User is verified, open dashboard
-        window.open("https://dashboard-ef9y.onrender.com/dashboard", "_blank");
+        window.open(`${import.meta.env.VITE_DASHBOARD_BASE_URL}`, "_blank");
       } else {
         // 🚫 Not verified, redirect to signup
         

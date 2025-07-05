@@ -38,10 +38,8 @@ const stockRoute = require("./routes/StockRoute");
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://tradexpert-ku2t.onrender.com",
-      "https://dashboard-ef9y.onrender.com",
+      `${process.env.VITE_FRONTEND_BASE_URL}`,
+      `${process.env.VITE_DASHBOARD_BASE_URL}`,
     ],
     credentials: true,
   })
@@ -209,12 +207,15 @@ app.get("/auth/check", async (req, res) => {
   if (!req.session.userId) return res.json({ loggedIn: false });
 
   const user = await UserModel.findById(req.session.userId);
-   if (!user) {
+  if (!user) {
     return res.json({ loggedIn: false, user: null });
   }
- 
+
   if (user?.isVerified) {
-    return res.json({ loggedIn: true, user: {name:user.name,email:user.email,id:user.userId} });
+    return res.json({
+      loggedIn: true,
+      user: { name: user.name, email: user.email, id: user.userId },
+    });
   } else {
     return res.json({ loggedIn: false });
   }
