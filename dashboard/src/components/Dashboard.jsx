@@ -21,7 +21,20 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
 
-
+  useEffect(() => {
+    axios
+      .get("https://backend-4u6j.onrender.com/auth/check", { withCredentials: true })
+      .then((res) => {
+        if (res.data.loggedIn) {
+          setName(res.data.user);
+        } else {
+          window.location.href = "https://tradexpert-ku2t.onrender.com/signup";
+        }
+      }).catch(()=>{
+        window.location.href="https://dashboard-ef9y.onrender.com";
+      })
+      .finally(() => setLoading(false));
+  });
 
   return (
     <div className="dashboard-container">

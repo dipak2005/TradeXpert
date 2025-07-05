@@ -42,7 +42,7 @@ const Emailinput = ({name}) => {
      
       window.open("https://dashboard-ef9y.onrender.com","_blank");
        toast.success("OTP Verified");
-      // navigate("https://dashboard-ef9y.onrender.com");
+      navigate("/");
     } catch (e) {
       toast.error("Invalid OTP");
     }
