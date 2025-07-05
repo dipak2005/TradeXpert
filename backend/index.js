@@ -1,4 +1,3 @@
-
 // load data from .env file
 require("dotenv").config();
 
@@ -9,18 +8,17 @@ const app = express();
 // mongodb
 const mongoose = require("mongoose");
 
-// connect cross origin 
+// connect cross origin
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
 // sending mail through node
 const nodemailer = require("nodemailer");
 
-// store the session use 
+// store the session use
 const crypto = require("crypto");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-
 
 // data from .env file
 const port = process.env.PORT || 3002;
@@ -28,8 +26,7 @@ const url = process.env.MONGO_URL;
 
 const path = require("path");
 
-
-// models 
+// models
 const HoldingsModel = require("../backend/model/HodingsModel");
 const PositionsModel = require("../backend/model/PositionsModel");
 const OrdersModel = require("../backend/model/OrdersModel");
@@ -38,10 +35,14 @@ const OTP = require("../backend/model/OtpModel");
 const UserModel = require("../backend/model/UserModel");
 const stockRoute = require("./routes/StockRoute");
 
-
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://tradexpert-ku2t.onrender.com",
+      "https://dashboard-ef9y.onrender.com",
+    ],
     credentials: true,
   })
 );
@@ -72,14 +73,11 @@ const sessionOptions = {
 };
 app.use(session(sessionOptions));
 
-
-
 //  endpoint of all-Holdings data
 app.get("/allHoldings", async (req, res) => {
   let allholdings = await HoldingsModel.find({});
   return res.json(allholdings);
 });
-
 
 // endpoint of allposition data
 app.get("/allPositions", async (req, res) => {
@@ -87,13 +85,11 @@ app.get("/allPositions", async (req, res) => {
   return res.json(allpositions);
 });
 
-
 // endpoint of allorders data
 app.get("/allOrders", async (req, res) => {
   let allOrders = await OrdersModel.find({});
   return res.json(allOrders);
 });
-
 
 // endpoint of neworder data
 app.post("/newOrder", async (req, res) => {
@@ -123,7 +119,6 @@ app.post("/newOrder", async (req, res) => {
   res.send("Order Saved!");
 });
 
-
 // endoint of selling stocks data
 app.post("/sellStocks", async (req, res) => {
   let sellStocks = new SellsModel({
@@ -138,18 +133,15 @@ app.post("/sellStocks", async (req, res) => {
   res.send("Sell Stock Successfull!");
 });
 
-
-// generate random otp 
+// generate random otp
 function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-
 // endpoint to send the otp to desired email
 app.post("/send-otp", async (req, res) => {
-
   const { email, name } = req.body;
-  console.log(email,name , "sending");
+  console.log(email, name, "sending");
   if (!email || !name) return res.status(400).send("Email and name required");
 
   const otpCode = generateOTP();
@@ -182,11 +174,10 @@ app.post("/send-otp", async (req, res) => {
   });
 });
 
-
 //  endpoint to verify the otp
 app.post("/verify-otp", async (req, res) => {
   const { email, otp, name } = req.body;
-   console.log(email,name , "verify")
+  console.log(email, name, "verify");
   const valid = await OTP.findOne({ email, otp });
 
   if (!valid) return res.status(404).send("Invalid otp");
@@ -217,16 +208,16 @@ app.post("/verify-otp", async (req, res) => {
 app.get("/auth/check", async (req, res) => {
   if (!req.session.id) return res.json({ loggedIn: false });
 
-  const user = await  UserModel.findById(req.session.id);
- let name = user.name;
+  const user = await UserModel.findById(req.session.id);
+  let name = user.name;
   if (user?.isVerified) {
-    return res.json({loggedIn:true,user:name  });
-  }else{
-    return res.json({loggedIn:false});
+    return res.json({ loggedIn: true, user: name });
+  } else {
+    return res.json({ loggedIn: false });
   }
 });
-app.get("/" , (req,res) => {
-   res.send("Done!");
+app.get("/", (req, res) => {
+  res.send("Done!");
 });
 
 mongoose
