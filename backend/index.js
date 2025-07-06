@@ -75,11 +75,11 @@ const sessionOptions = {
 
 app.use(session(sessionOptions));
 
-// app.use((req, res, next) => {
-//   console.log("✅ Session ID:", req.sessionID);
-//   console.log("✅ Session Data:", req.session);
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log("✅ Session ID:", req.session);
+  console.log("✅ Session Data:", req.session);
+  next();
+});
 
 //  endpoint of all-Holdings data
 app.get("/allHoldings", async (req, res) => {
@@ -220,27 +220,42 @@ app.post("/verify-otp", async (req, res) => {
 });
 
 // endpoint to check user is loggdin or not
-app.get("/auth/check", async (req, res) => {
-  console.log("Session content in /auth/check:", req.session);
-  if (!req.session.userId) return res.json({ loggedIn: false });
+// app.get("/auth/check", async (req, res) => {
+//   console.log("Session content in /auth/check:", req.session);
+//   // if (!req.session.userId) return res.json({ loggedIn: false });
 
-  const user = await UserModel.findById(req.session.userId);
+//   const user = await UserModel.findById(req.session.userId);
+//   // if (!user) {
+//   //   return res.json({ loggedIn: false, user: null });
+//   // }
+
+//   if (user?.isVerified) {
+//   return res.json({
+//     loggedIn: true,
+//     user: { name: user.name, email: user.email, id: user._id },
+//   });
+//   } else {
+//   return res.json({ loggedIn: false });
+//   }
+// });
+// app.get("/", (req, res) => {
+//   res.send("Done!");
+// });
+
+// GET /auth/check
+app.get("/auth/check", async (req, res) => {
+  const email = req.query.email; // or get from session
+  if (!email) return res.status(400).json({ message: "Email is required" });
+
+  const user = await UserModel.findOne({ email });
+
   if (!user) {
-    return res.json({ loggedIn: false, user: null });
+    return res.status(404).json({ verified: false, message: "User not found" });
   }
 
-  // if (user?.isVerified) {
-  return res.json({
-    loggedIn: true,
-    user: { name: user.name, email: user.email, id: user._id },
-  });
-  // } else {
-  // return res.json({ loggedIn: false });
-  // }
+  res.json({ verified: user.verified });
 });
-app.get("/", (req, res) => {
-  res.send("Done!");
-});
+
 
 mongoose
   .connect(process.env.MONGO_URL)
