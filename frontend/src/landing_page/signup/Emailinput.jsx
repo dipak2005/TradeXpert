@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
-const Emailinput = ({ name }) => {
+const Emailinput = ({ name ,disabled}) => {
   const [email, setEmail] = useState("");
 
   const [otp, setOtp] = useState("");
@@ -77,8 +77,8 @@ const Emailinput = ({ name }) => {
           <input
             type="text"
             placeholder="Enter your email"
-            value={email}
-            name="email"
+            value={email} autoComplete="email"
+            name="email" disabled={disabled}
             onChange={(e) => setEmail(e.target.value)}
             style={{
               width: "100%",
@@ -119,7 +119,7 @@ const Emailinput = ({ name }) => {
             type="text"
             placeholder="000-000"
             value={otp}
-            name="otp"
+            name="otp" autoComplete="one-time-password"
             onChange={(e) => setOtp(e.target.value)}
             style={{
               width: "100%",

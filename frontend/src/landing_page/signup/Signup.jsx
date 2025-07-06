@@ -41,7 +41,7 @@ const [name, setName] = useState("");
             Or track your existing application
           </p>
           <NameInput name={name} setName={setName} />
-          <Emailinput name={name} />
+          <Emailinput name={name} disabled={!name}/>
           
            <div
             className="google mt-3"

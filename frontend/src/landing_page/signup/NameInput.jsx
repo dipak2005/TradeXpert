@@ -24,7 +24,7 @@ function NameInput({name,setName}) {
             type="text"
             placeholder="Enter your Name"
             value={name}
-            name="name"
+            name="name" autoComplete='name'
             onChange={(e) => setName(e.target.value)}
             style={{
               width: "100%",

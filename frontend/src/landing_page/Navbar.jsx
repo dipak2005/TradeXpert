@@ -18,9 +18,9 @@
           withCredentials: true,
         });
 
-        if (res.data.loggedIn) {
-         setName(res.data.user.name)
-            setLogging(true);
+        if (res.isVerified) {
+        //  setName(res.data.user.name)
+        //     setLogging(true);
           // ✅ User is verified, open dashboard
           window.open("https://dashboard-ef9y.onrender.com", "_blank");
         } else {
