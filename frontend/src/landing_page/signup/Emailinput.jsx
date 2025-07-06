@@ -6,12 +6,13 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
-const Emailinput = ({name}) => {
+const Emailinput = ({ name }) => {
   const [email, setEmail] = useState("");
-  
+
   const [otp, setOtp] = useState("");
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+  const [login, setLogging] = useState(false);
   const baseUrl = "https://backend-4u6j.onrender.com";
   const sendOtp = async () => {
     if (!email || !name) {
@@ -40,12 +41,13 @@ const Emailinput = ({name}) => {
           email,
           otp: otp.toString(),
           name,
+          isVerified:true
         },
         {
           withCredentials: true,
         }
       );
-
+      setLogging(true);
       window.open("https://dashboard-ef9y.onrender.com", "_blank");
       toast.success("OTP Verified");
       navigate("/");

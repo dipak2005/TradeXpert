@@ -65,13 +65,19 @@ const sessionOptions = {
   store,
   secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     expires: new Date(Date.now() + 7 * 24 * 3600 * 1000),
     maxAge: 7 * 24 * 3600 * 1000,
     httpOnly: true,
   },
 };
+
+app.use((req, res, next) => {
+  console.log("SESSION ID:", req.session.id);
+  next();
+});
+
 app.use(session(sessionOptions));
 
 //  endpoint of all-Holdings data
@@ -165,13 +171,12 @@ app.post("/send-otp", async (req, res) => {
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
-    if (info) {
-      console.log(" Email sent:", info.response);
-      res.send("OTP sent");
-    } else {
-      console.error(" Error sending email:", err);
-      return res.status(500).send("Error sending mail");
-    }
+     if (err) {
+    console.error("Error sending email:", err);
+    return res.status(500).send("Error sending mail");
+  }
+  console.log("Email sent:", info.response);
+  res.send("OTP sent");
   });
 });
 
@@ -179,15 +184,18 @@ app.post("/send-otp", async (req, res) => {
 app.post("/verify-otp", async (req, res) => {
   const { email, otp, name } = req.body;
   console.log(email, name, "verify");
-  const valid = await OTP.findOne({ email, otp });
 
+
+
+  const valid = await OTP.findOne({ email, otp });
   if (!valid) return res.status(404).send("Invalid otp");
 
   let user = await UserModel.findOne({ email });
 
   if (!user) {
-    user = new UserModel({ email, name, isVerified: false });
+    user = new UserModel({ email, name, isVerified: true });
   } else {
+    user.name = name || user.name;
     user.isVerified = true;
   }
   await user.save();
@@ -201,6 +209,7 @@ app.post("/verify-otp", async (req, res) => {
       name: user.name,
       email: user.email,
       id: user._id,
+      isVerified:user.isVerified,
     },
   });
 });
@@ -214,12 +223,12 @@ app.get("/auth/check", async (req, res) => {
     return res.json({ loggedIn: false, user: null });
   }
 
-  if (user?.isVerified) {
+  // if (user?.isVerified) {
     return res.json({
-      loggedIn: true, user: { name: user.name, email: user.email, id: user.userId } });
-  } else {
-    return res.json({ loggedIn: false });
-  }
+      loggedIn: true, user: { name: user.name, email: user.email, id: user._id } });
+  // } else {
+    // return res.json({ loggedIn: false });
+  // }
 });
 app.get("/", (req, res) => {
   res.send("Done!");
