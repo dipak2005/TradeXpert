@@ -253,7 +253,7 @@ app.get("/auth/check", async (req, res) => {
     return res.status(404).json({ verified: false, message: "User not found" });
   }
 
-  res.json({ verified: user.verified });
+  res.json({ verified: user.verified ,name:user.name,email:user.email});
 });
 
 
