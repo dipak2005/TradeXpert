@@ -41,7 +41,7 @@ const Emailinput = ({ name }) => {
           email,
           otp: otp.toString(),
           name,
-          isVerified:true
+          // isVerified:true
         },
         {
           withCredentials: true,
