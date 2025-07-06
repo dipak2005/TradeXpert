@@ -74,7 +74,7 @@ const sessionOptions = {
 };
 
 app.use((req, res, next) => {
-  console.log("SESSION ID:", req.sessionID);
+  console.log("SESSION ID:", req.session);
   next();
 });
 
@@ -201,7 +201,7 @@ app.post("/verify-otp", async (req, res) => {
   await user.save();
   await OTP.deleteMany({ email });
 
-  req.sessionID = user._id;
+  req.session.userId = user._id;
 
   return res.status(200).json({
     message: "OTP verified successfully.",
@@ -216,9 +216,9 @@ app.post("/verify-otp", async (req, res) => {
 
 // endpoint to check user is loggdin or not
 app.get("/auth/check", async (req, res) => {
-  if (!req.sessionID) return res.json({ loggedIn: false });
+  if (!req.session.userId) return res.json({ loggedIn: false });
 
-  const user = await UserModel.findById(req.sessionID);
+  const user = await UserModel.findById(req.session.userId);
   if (!user) {
     return res.json({ loggedIn: false, user: null });
   }
