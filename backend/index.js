@@ -73,12 +73,15 @@ const sessionOptions = {
   },
 };
 
+app.use(session(sessionOptions));
+
 app.use((req, res, next) => {
-  console.log("SESSION ID:", req.session);
+  console.log("✅ Session ID:", req.sessionID);
+  console.log("✅ Session Data:", req.session);
   next();
 });
 
-app.use(session(sessionOptions));
+
 
 //  endpoint of all-Holdings data
 app.get("/allHoldings", async (req, res) => {
@@ -219,6 +222,8 @@ app.post("/verify-otp", async (req, res) => {
 
 // endpoint to check user is loggdin or not
 app.get("/auth/check", async (req, res) => {
+
+   console.log("Session content in /auth/check:", req.session);
   if (!req.session.userId) return res.json({ loggedIn: false });
 
   const user = await UserModel.findById(req.session.userId);
