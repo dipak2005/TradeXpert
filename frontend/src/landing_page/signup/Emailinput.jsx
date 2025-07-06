@@ -47,7 +47,7 @@ const Emailinput = ({ name }) => {
           withCredentials: true,
         }
       );
-      setLogging(true);
+      // setLogging(true);
       window.open("https://dashboard-ef9y.onrender.com", "_blank");
       toast.success("OTP Verified");
       navigate("/");
