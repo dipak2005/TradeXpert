@@ -75,13 +75,11 @@ const sessionOptions = {
 
 app.use(session(sessionOptions));
 
-app.use((req, res, next) => {
-  console.log("✅ Session ID:", req.sessionID);
-  console.log("✅ Session Data:", req.session);
-  next();
-});
-
-
+// app.use((req, res, next) => {
+//   console.log("✅ Session ID:", req.sessionID);
+//   console.log("✅ Session Data:", req.session);
+//   next();
+// });
 
 //  endpoint of all-Holdings data
 app.get("/allHoldings", async (req, res) => {
@@ -174,21 +172,20 @@ app.post("/send-otp", async (req, res) => {
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
-     if (err) {
-    console.error("Error sending email:", err);
-    return res.status(500).send("Error sending mail");
-  }
-  console.log("Email sent:", info.response);
-  res.send("OTP sent");
+    if (err) {
+      console.error("Error sending email:", err);
+      return res.status(500).send("Error sending mail");
+    }
+    console.log("Email sent:", info.response);
+    res.send("OTP sent");
   });
 });
 
 //  endpoint to verify the otp
 app.post("/verify-otp", async (req, res) => {
+  try{
   const { email, otp, name } = req.body;
   console.log(email, name, "verify");
-
-
 
   const valid = await OTP.findOne({ email, otp });
   if (!valid) return res.status(404).send("Invalid otp");
@@ -201,29 +198,30 @@ app.post("/verify-otp", async (req, res) => {
     user.name = name || user.name;
     user.isVerified = true;
   }
-
-  res.session.userId = user._id;
+ req.session.userId = user._id;
   await user.save();
   await OTP.deleteMany({ email });
-
-  
  
+
   return res.status(200).json({
     message: "OTP verified successfully.",
     user: {
       name: user.name,
       email: user.email,
       id: user._id,
-      isVerified:user.isVerified,
+      isVerified: user.isVerified,
     },
   });
- 
+
+  } catch(e) {
+     console.error("OTP Verification Error:", err.message, err.stack);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 // endpoint to check user is loggdin or not
 app.get("/auth/check", async (req, res) => {
-
-   console.log("Session content in /auth/check:", req.session);
+  console.log("Session content in /auth/check:", req.session);
   if (!req.session.userId) return res.json({ loggedIn: false });
 
   const user = await UserModel.findById(req.session.userId);
@@ -232,10 +230,12 @@ app.get("/auth/check", async (req, res) => {
   }
 
   // if (user?.isVerified) {
-    return res.json({
-      loggedIn: true, user: { name: user.name, email: user.email, id: user._id } });
+  return res.json({
+    loggedIn: true,
+    user: { name: user.name, email: user.email, id: user._id },
+  });
   // } else {
-    // return res.json({ loggedIn: false });
+  // return res.json({ loggedIn: false });
   // }
 });
 app.get("/", (req, res) => {
