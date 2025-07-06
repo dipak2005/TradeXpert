@@ -198,11 +198,13 @@ app.post("/verify-otp", async (req, res) => {
     user.name = name || user.name;
     user.isVerified = true;
   }
+
+  res.session.userId = user._id;
   await user.save();
   await OTP.deleteMany({ email });
 
-  req.session.userId = user._id;
-
+  
+ 
   return res.status(200).json({
     message: "OTP verified successfully.",
     user: {
@@ -212,6 +214,7 @@ app.post("/verify-otp", async (req, res) => {
       isVerified:user.isVerified,
     },
   });
+ 
 });
 
 // endpoint to check user is loggdin or not
