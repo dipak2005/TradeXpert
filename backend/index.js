@@ -74,7 +74,7 @@ const sessionOptions = {
 };
 
 app.use((req, res, next) => {
-  console.log("SESSION ID:", req.session.id);
+  console.log("SESSION ID:", req.session.userId);
   next();
 });
 
